@@ -7,12 +7,13 @@ A normalised PostgreSQL database of equity price and fundamental data, with a Py
 | SQL concept | Where |
 |---|---|
 | Window functions (`STDDEV`, `LAG`, `RANK`, `NTILE`, `LAST_VALUE`) | All query files |
-| CTE chains | `02`, `03`, `05` |
+| CTE chains | `02`, `03`, `05`, `06` |
 | `PARTITION BY` across multiple dimensions | `01`, `02`, `05` |
-| `DISTINCT ON` for latest-row-per-group | `03` |
+| `DISTINCT ON` for latest-row-per-group | `03`, `06` |
 | Multi-table joins across a normalised schema | All query files |
-| Derived financial ratios (P/E, P/B, momentum, vol) | `02`, `03` |
+| Derived financial ratios (P/E, P/B, momentum, vol) | `02`, `03`, `06` |
 | Cumulative returns via `LN` + `EXP` | `05` |
+| Cross-factor rank aggregation (composite score) | `06` |
 
 ## Schema
 
@@ -64,6 +65,7 @@ Ingests 55 S&P 500 stocks across 11 sectors: ~2 years of daily prices, quarterly
 | `03_value_screen.sql` | P/E and P/B | `DISTINCT ON`, ratio derivation, `NTILE` |
 | `04_earnings_surprise.sql` | Earnings surprise | `CASE`, trailing 4Q average, beat/miss label |
 | `05_sector_attribution.sql` | Sector attribution | Monthly returns, active return vs. universe, 12M cumulative |
+| `06_composite_factor_score.sql` | Multi-factor composite | Cross-factor rank aggregation, composite rank, 5-table join |
 
 Run any query directly:
 
